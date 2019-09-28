@@ -36,9 +36,8 @@ public class SubtractionOperator extends Operator {
   }
 
   @Override
-  public boolean hasLowerPrecedenceThan(Token token) {
-    return (token instanceof MultiplicationOperator
-      || token instanceof DivisionOperator);
+  public boolean hasLowerOrEqualPrecedenceTo(Token token) {
+    return true;
   }
 
   @Override

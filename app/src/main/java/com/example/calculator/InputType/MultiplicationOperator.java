@@ -27,8 +27,9 @@ public class MultiplicationOperator extends Operator {
   }
 
   @Override
-  public boolean hasLowerPrecedenceThan(Token token) {
-    return false;
+  public boolean hasLowerOrEqualPrecedenceTo(Token token) {
+    return (token instanceof MultiplicationOperator
+      || token instanceof DivisionOperator);
   }
 
   @Override

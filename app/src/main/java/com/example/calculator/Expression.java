@@ -44,11 +44,21 @@ public class Expression {
       && inputExpression.size() >= 2
       && inputExpression.get(inputExpression.size() - 2) instanceof Operator) {
       // This means the negative operator is to be treated as a unary operator
-      inputExpression.remove(lastInputToken);
+      removeLastElementFromInputExpression();
       inputExpression.add(((SubtractionOperator) lastInputToken).handleInputTokenAsUnary(token));
     } else {
-      inputExpression.remove(lastInputToken);
+      removeLastElementFromInputExpression();
       inputExpression.addAll(lastInputToken.handleInputToken(token));
+    }
+  }
+
+  private void removeLastElementFromInputExpression() {
+    if (inputExpression == null || inputExpression.size() == 0) {
+      return;
+    } else if (inputExpression.size() == 1) {
+      inputExpression.remove(0);
+    } else {
+      inputExpression.remove(inputExpression.size() - 1);
     }
   }
 

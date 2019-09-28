@@ -69,7 +69,7 @@ public class CalculatorEngine {
         outputQueue.add(token);
       } else if (isOperator(token)) {
         while (!operatorStack.empty()
-          && ((Operator) token).hasLowerPrecedenceThan(operatorStack.peek())) {
+          && ((Operator) token).hasLowerOrEqualPrecedenceTo(operatorStack.peek())) {
           Token operator = operatorStack.pop();
           outputQueue.add(operator);
         }

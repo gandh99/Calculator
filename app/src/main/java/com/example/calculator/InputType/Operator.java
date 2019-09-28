@@ -6,7 +6,7 @@ public abstract class Operator extends Token {
     super(value);
   }
 
-  public abstract boolean hasLowerPrecedenceThan(Token token);
+  public abstract boolean hasLowerOrEqualPrecedenceTo(Token token);
 
   public abstract NumberValue calculate(NumberValue operand1, NumberValue operand2);
 }
