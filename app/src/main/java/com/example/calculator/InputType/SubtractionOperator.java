@@ -21,17 +21,18 @@ public class SubtractionOperator extends Operator {
 
     if (inputToken instanceof NumberValue) {
       combinedTokens.add(this);
-      combinedTokens.add(new NumberValue("1"));
-      combinedTokens.add(new MultiplicationOperator());
       combinedTokens.add(inputToken);
-//      Token newToken = new NumberValue(getValue() + inputToken.getValue());
-//      combinedTokens.add(newToken);
     } else if (inputToken instanceof OpenParenthesis) {
       combinedTokens.add(this);
       combinedTokens.add(inputToken);
     }
 
     return combinedTokens;
+  }
+
+  /* Used when the subtraction operator is to be treated as a negation */
+  public Token handleInputTokenAsUnary(Token token) {
+    return new NumberValue(getValue() + token.getValue());
   }
 
   @Override

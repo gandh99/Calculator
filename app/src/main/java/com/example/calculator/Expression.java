@@ -39,6 +39,12 @@ public class Expression {
 
     if (lastInputToken == null) {
       inputExpression.add(token);
+    } else if (lastInputToken instanceof SubtractionOperator
+      && inputExpression.size() >= 2
+      && inputExpression.get(inputExpression.size() - 2) instanceof Operator) {
+      // This means the negative operator is to be treated as a unary operator
+      inputExpression.remove(lastInputToken);
+      inputExpression.add(((SubtractionOperator) lastInputToken).handleInputTokenAsUnary(token));
     } else {
       inputExpression.remove(lastInputToken);
       inputExpression.addAll(lastInputToken.handleInputToken(token));
