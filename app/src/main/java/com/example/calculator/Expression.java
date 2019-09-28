@@ -6,6 +6,7 @@ import com.example.calculator.InputType.Operator;
 import com.example.calculator.InputType.SubtractionOperator;
 import com.example.calculator.InputType.Token;
 
+import java.awt.font.NumericShaper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class Expression {
     CalculatorEngine engine = new CalculatorEngine();
     String result = engine.calculateExpression(inputExpression);
 
-    return result;
+    return NumericalResultFormatter.formatResult(result);
   }
 
   public void clear() {
