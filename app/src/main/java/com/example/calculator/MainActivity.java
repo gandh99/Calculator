@@ -16,18 +16,17 @@ import com.example.calculator.InputType.SubtractionOperator;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-  TextView textViewInput, textViewAnswer;
+  TextView textViewFormula, textViewResult;
   Button[] numberButtons = new Button[10];
   Map<Button, Operator> operatorButtons = new HashMap<>();
   Map<Button, Parenthesis> parenthesisButtons = new HashMap<>();
-  Button evaluateButton, resetButton, decimalButton;
+  Button evaluateButton, deleteButton, decimalButton;
   Expression expression;
 
   @Override
@@ -35,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    textViewInput = findViewById(R.id.textViewInput);
-    textViewAnswer = findViewById(R.id.textViewAnswer);
+    textViewFormula = findViewById(R.id.textViewFormula);
+    textViewResult = findViewById(R.id.textViewResult);
     evaluateButton = findViewById(R.id.buttonEvaluate);
-    resetButton = findViewById(R.id.buttonReset);
+    deleteButton = findViewById(R.id.buttonDelete);
     decimalButton = findViewById(R.id.buttonDecimal);
     expression = new Expression();
 
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     initOperatorButtons();
     initParenthesisButtons();
     initEvaluateButton();
-    initResetButton();
+    initDeleteButton();
     initDecimalButton();
   }
 
@@ -117,28 +116,42 @@ public class MainActivity extends AppCompatActivity {
       public void onClick(View view) {
         try {
           String result = expression.evaluate();
-          textViewAnswer.setText(result);
-        } catch (IllegalArgumentException e) {
-          textViewAnswer.setText(e.getMessage());
+          textViewResult.setText(result);
+        } catch (IllegalArgumentException | ClassCastException e) {
+          textViewResult.setText(e.getMessage());
         }
       }
     });
   }
 
-  private void initResetButton() {
-    resetButton.setOnClickListener(new View.OnClickListener() {
+  private void initDeleteButton() {
+    deleteButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
+        expression.backspace();
+        String oldFormula = textViewFormula.getText().toString();
+
+        if (oldFormula.length() >= 1) {
+          String newFormula = oldFormula.substring(0, oldFormula.length() - 1);
+          textViewFormula.setText(newFormula);
+        }
+      }
+    });
+
+    deleteButton.setOnLongClickListener(new View.OnLongClickListener() {
+      @Override
+      public boolean onLongClick(View view) {
         expression.clear();
-        textViewInput.setText("");
-        textViewAnswer.setText("");
+        textViewFormula.setText("");
+        textViewResult.setText("");
+        return true;
       }
     });
   }
 
   private void updateInput(String input) {
-    String newInput = textViewInput.getText().toString() + input;
-    textViewInput.setText(newInput);
+    String newInput = textViewFormula.getText().toString() + input;
+    textViewFormula.setText(newInput);
   }
 
   private void initDecimalButton() {

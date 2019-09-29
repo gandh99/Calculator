@@ -35,16 +35,13 @@ public class CalculatorEngine {
         NumberValue operand1, operand2, result;
         try {
           operand2 = (NumberValue) operatorStack.pop();
+          operand1 = (NumberValue) operatorStack.pop();
 
-          // Ugly workaround for negative numbers because negation uses "- 1 * (number)"
-          if (operatorStack.empty()) {
-            operand1 = new NumberValue("0");
-          } else {
-            operand1 = (NumberValue) operatorStack.pop();
-          }
           result = ((Operator) token).calculate(operand1, operand2);
-        } catch (ClassCastException e) {
-          throw new IllegalArgumentException("Invalid syntax");
+        } catch (ClassCastException  e) {
+          throw new ClassCastException("Invalid syntax");
+        } catch (NumberFormatException e) {
+          throw new NumberFormatException("Invalid syntax");
         }
 
         operatorStack.push(result);

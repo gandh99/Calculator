@@ -6,7 +6,6 @@ import com.example.calculator.InputType.Operator;
 import com.example.calculator.InputType.SubtractionOperator;
 import com.example.calculator.InputType.Token;
 
-import java.awt.font.NumericShaper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,15 +43,15 @@ public class Expression {
       && inputExpression.size() >= 2
       && inputExpression.get(inputExpression.size() - 2) instanceof Operator) {
       // This means the negative operator is to be treated as a unary operator
-      removeLastElementFromInputExpression();
+      removeLastTokenFromInputExpression();
       inputExpression.add(((SubtractionOperator) lastInputToken).handleInputTokenAsUnary(token));
     } else {
-      removeLastElementFromInputExpression();
+      removeLastTokenFromInputExpression();
       inputExpression.addAll(lastInputToken.handleInputToken(token));
     }
   }
 
-  private void removeLastElementFromInputExpression() {
+  private void removeLastTokenFromInputExpression() {
     if (inputExpression == null || inputExpression.size() == 0) {
       return;
     } else if (inputExpression.size() == 1) {
@@ -67,6 +66,23 @@ public class Expression {
     String result = engine.calculateExpression(inputExpression);
 
     return NumericalResultFormatter.formatResult(result);
+  }
+
+  public void backspace() {
+    if (inputExpression.size() == 0) {
+      return;
+    }
+
+    Token lastInputToken = getLastInputToken();
+    if (lastInputToken instanceof NumberValue) {
+      if (lastInputToken.getValue().length() == 1) {
+        removeLastTokenFromInputExpression();
+      } else {
+        ((NumberValue) lastInputToken).backspace();
+      }
+    } else {
+      removeLastTokenFromInputExpression();
+    }
   }
 
   public void clear() {
