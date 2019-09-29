@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -117,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
         try {
           String result = expression.evaluate();
           textViewResult.setText(result);
-        } catch (IllegalArgumentException | ClassCastException e) {
-          textViewResult.setText(e.getMessage());
+        } catch (IllegalArgumentException | ClassCastException | EmptyStackException e) {
+          textViewResult.setText("Invalid syntax");
         }
       }
     });

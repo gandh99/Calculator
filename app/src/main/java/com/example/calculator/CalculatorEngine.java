@@ -6,6 +6,7 @@ import com.example.calculator.InputType.Operator;
 import com.example.calculator.InputType.Parenthesis;
 import com.example.calculator.InputType.Token;
 
+import java.util.EmptyStackException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -42,6 +43,8 @@ public class CalculatorEngine {
           throw new ClassCastException("Invalid syntax");
         } catch (NumberFormatException e) {
           throw new NumberFormatException("Invalid syntax");
+        } catch (EmptyStackException e) {
+          throw new EmptyStackException();
         }
 
         operatorStack.push(result);

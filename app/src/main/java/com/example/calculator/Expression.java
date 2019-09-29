@@ -78,7 +78,9 @@ public class Expression {
       if (lastInputToken.getValue().length() == 1) {
         removeLastTokenFromInputExpression();
       } else {
-        ((NumberValue) lastInputToken).backspace();
+        Token newInputToken = ((NumberValue) lastInputToken).backspace();
+        removeLastTokenFromInputExpression();
+        inputExpression.add(newInputToken);
       }
     } else {
       removeLastTokenFromInputExpression();

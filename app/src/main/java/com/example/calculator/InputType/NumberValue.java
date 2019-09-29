@@ -37,8 +37,10 @@ public class NumberValue extends Token {
     return getValue().contains(".");
   }
 
-  public void backspace() {
+  public Token backspace() {
     String oldNumber = getValue();
     value = oldNumber.substring(0, oldNumber.length() - 1);
+
+    return (value.equals("-")) ? new SubtractionOperator() : this ;
   }
 }
