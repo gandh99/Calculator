@@ -1,6 +1,10 @@
 ## Calculator
 First Android Project on a basic calculator
 
+## Screenshots
+<img src="https://github.com/gandh99/Calculator/blob/master/screenshots/Screenshot_20191226-215350_Calculator.jpg" alt="alt text" width="30%" height="30%">
+<img src="https://github.com/gandh99/Calculator/blob/master/screenshots/Screenshot_20191226-215359_Calculator.jpg" alt="alt text" width="30%" height="30%">
+
 ## Supported Functionalities
 1. Basic mathematical operations (add, subtract, multiply, divide)
 2. Brackets
